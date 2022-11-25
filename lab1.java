@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class lab1 {
     public static void main(String[] args) {
-        int NOW_DAY = 17;
+        int NOW_DAY = 25;
         int NOW_MONTH = 11;
         int NOW_YEAR = 2022;
         int diffDay, diffMonth, diffYear;
@@ -16,23 +16,19 @@ public class lab1 {
         System.out.println("Введенный ДД.ММ.ГГГГ: " + day + '.' + month + '.' + year);
         System.out.println("Сегодня ДД.ММ.ГГГГ: " + NOW_DAY + '.' + NOW_MONTH + '.' + NOW_YEAR);
 
-
-        day += daysInMonth(month, year);
-        while (true) {
-            if (day > daysInMonth(month, year)) {
-                day -= daysInMonth(month, year);
-                month++;
-            } else {
-                break;
-            }
-            if (month > 12){
-                month -= 12;
-                year += 1;
-            }
+        diffYear = NOW_YEAR - year;
+        diffMonth = NOW_MONTH - month;
+        diffDay = NOW_DAY - day;
+        if (month > NOW_MONTH) {
+            diffMonth += 12;
+            diffYear--;
+        }
+        if (day > NOW_DAY) {
+            diffDay = diffDay + daysInMonth(month, year);
+            diffMonth--;
         }
 
-
-        System.out.println("Возраст ДД.ММ.ГГГГ: " + (NOW_DAY - day) + '.' + (NOW_MONTH - month + 1) + '.' + (NOW_YEAR - year));
+        System.out.println("Возраст ДД.ММ.ГГГГ: " + diffDay + '.' + diffMonth + '.' + diffYear);
     }
 
     public static int enterDay() {
@@ -115,7 +111,7 @@ public class lab1 {
                 }
             case 11:
                 if (year == 2022) {
-                    if (day < 18) {
+                    if (day < 26) {
                         return (true);
                     } else {
                         System.out.println("Сегодня 25 октября. Ошибка при вводе Дня Рождения. Повторите ввод");
